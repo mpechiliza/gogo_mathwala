@@ -1,145 +1,959 @@
-
 <!DOCTYPE html>
 <html lang="en">
 <head>
 <meta charset="UTF-8">
 <meta name="viewport" content="width=device-width, initial-scale=1.0">
-<title>Gogo Mathwala - Roast Arena</title>
+
+<title>Gogo & Tokoloshe - Roast Arena</title>
 
 <style>
-* { box-sizing: border-box; }
+:root {
+  --gold: #ffd36a;
+  --fire: #ff7138;
+  --panel: rgba(19,8,6,.84);
+  --text: #fff8ef;
+  --muted: #d9c0ae;
+}
+
+* {
+  box-sizing: border-box;
+}
+
+html, body {
+  margin: 0;
+  min-height: 100%;
+  background: #170805;
+  color: var(--text);
+  font-family: Arial, sans-serif;
+}
 
 body {
-  margin: 0;
-  font-family: Arial, sans-serif;
-  background: #21160f;
-  color: white;
+  min-height: 100vh;
 }
 
 .arena {
   min-height: 100vh;
-  padding: 20px 14px;
+  position: relative;
+  isolation: isolate;
+  overflow: hidden;
+}
+
+.arena::before {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -2;
   background:
-    linear-gradient(#0008, #000b),
-    url("IMG_5619.jpeg") center/cover no-repeat;
-  text-align: center;
+    url("./IMG_5619.jpeg")
+    center center / cover no-repeat;
 }
 
-h1 {
-  color: #ffd36a;
-  font-size: 27px;
-  margin: 8px 0 20px;
+.arena::after {
+  content: "";
+  position: fixed;
+  inset: 0;
+  z-index: -1;
+  background: linear-gradient(
+    180deg,
+    rgba(13,5,3,.72),
+    rgba(18,6,3,.2) 45%,
+    rgba(10,4,3,.88)
+  );
+  pointer-events: none;
 }
 
-.characters {
+.page {
+  width: min(100%, 1080px);
+  margin: auto;
+  padding: 22px 18px 35px;
+}
+
+.masthead {
   display: flex;
-  justify-content: space-around;
+  justify-content: space-between;
   align-items: center;
-  gap: 10px;
-  margin-bottom: 20px;
+  padding: 14px 18px;
+  border: 1px solid #ffffff30;
+  border-radius: 18px;
+  background: rgba(15,6,4,.75);
+  backdrop-filter: blur(12px);
 }
 
-.character {
-  width: 45%;
-  max-width: 180px;
-  height: 160px;
-  object-fit: contain;
+.brand {
+  display: flex;
+  align-items: center;
+  gap: 13px;
 }
 
-.section-title {
-  color: #ffd36a;
+.brand-mark {
+  width: 52px;
+  height: 52px;
+  display: grid;
+  place-items: center;
+  border: 2px solid var(--gold);
+  border-radius: 50%;
+  background: #6b2514;
+  font-size: 27px;
+}
+
+.brand h1 {
+  margin: 0;
+  font-size: 22px;
+}
+
+.brand p {
+  margin: 4px 0 0;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.live-state {
+  display: flex;
+  align-items: center;
+  gap: 9px;
+  padding: 9px 13px;
+  border: 1px solid #ff704d;
+  border-radius: 30px;
+  background: #48150e;
+  font-size: 11px;
   font-weight: bold;
-  margin: 15px 0;
+  letter-spacing: 2px;
+}
+
+.live-dot {
+  width: 9px;
+  height: 9px;
+  border-radius: 50%;
+  background: #ff3434;
+  box-shadow: 0 0 12px red;
+  animation: pulse 1.5s infinite;
+}
+
+@keyframes pulse {
+  50% { opacity: .4; }
+}
+
+.intro {
+  text-align: center;
+  margin: 26px auto 20px;
+}
+
+.eyebrow {
+  color: var(--gold);
+  font-size: 11px;
+  letter-spacing: 4px;
+  text-transform: uppercase;
+}
+
+.intro h2 {
+  margin: 8px 0;
+  font-size: clamp(28px, 5vw, 46px);
+  text-shadow: 0 4px 20px black;
+}
+
+.intro p {
+  color: #f1d9c7;
+  font-size: 14px;
+}
+
+.stage {
+  display: grid;
+  grid-template-columns: 1fr 1fr;
+  align-items: center;
+  gap: 30px;
+  max-width: 850px;
+  margin: 25px auto;
 }
 
 .contestant {
-  width: 105px;
-  height: 105px;
+  text-align: center;
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+}
+
+.contestant-photo {
+  width: 155px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 4px solid var(--gold);
   border-radius: 50%;
-  border: 4px solid gold;
+  background: #572313;
+  box-shadow: 0 0 30px #ff9d34;
+  font-size: 55px;
+}
+
+.contestant-photo img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-.username {
+.contestant-label {
+  margin-top: 13px;
+  color: var(--gold);
+  font-size: 11px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.contestant-name {
+  margin-top: 8px;
+  padding: 10px 24px;
+  border: 1px solid var(--gold);
+  border-radius: 30px;
+  background: linear-gradient(#29120b,#080403);
+  box-shadow: 0 0 18px #ffbd3d55;
   font-size: 19px;
   font-weight: bold;
-  margin: 8px;
+  overflow-wrap: anywhere;
 }
 
-.queue {
+.contestant-handle {
+  margin-top: 7px;
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.roast-bubble {
+  position: relative;
+  padding: 24px;
+  border: 2px solid var(--gold);
+  border-radius: 22px;
+  background: linear-gradient(
+    145deg,
+    rgba(47,16,9,.97),
+    rgba(12,5,4,.97)
+  );
+  box-shadow:
+    0 0 0 5px #ffbb3a25,
+    0 14px 40px #000a,
+    0 0 35px #ff8c2c55;
+}
+
+.roast-bubble::before {
+  content: "";
+  position: absolute;
+  left: -10px;
+  top: 50%;
+  width: 17px;
+  height: 17px;
+  background: #35150b;
+  border-left: 2px solid var(--gold);
+  border-bottom: 2px solid var(--gold);
+  transform: translateY(-50%) rotate(45deg);
+}
+
+.roast-label {
+  color: var(--gold);
+  font-size: 12px;
+  font-weight: bold;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.roast-text {
+  min-height: 100px;
+  margin: 15px 0 0;
+  font-size: clamp(18px, 2.5vw, 24px);
+  line-height: 1.5;
+  font-weight: bold;
+  overflow-wrap: anywhere;
+}
+
+.roast-meta {
+  margin-top: 13px;
+  color: var(--muted);
+  font-size: 12px;
+}
+
+.panel {
+  max-width: 850px;
+  margin: 22px auto;
+  padding: 16px;
+  border: 1px solid #ffd36a88;
+  border-radius: 20px;
+  background: var(--panel);
+  backdrop-filter: blur(12px);
+  box-shadow: 0 12px 34px #0008;
+}
+
+.section-heading {
+  display: flex;
+  justify-content: space-between;
+  align-items: center;
+  margin-bottom: 15px;
+}
+
+.section-heading h3 {
+  margin: 0;
+  color: var(--gold);
+  font-size: 13px;
+  letter-spacing: 2px;
+  text-transform: uppercase;
+}
+
+.section-heading span {
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.queue-grid {
   display: grid;
-  grid-template-columns: repeat(5, 1fr);
-  gap: 13px 8px;
-  max-width: 420px;
-  margin: 18px auto;
+  grid-template-columns: repeat(5,1fr);
+  gap: 13px;
 }
 
-.queue img {
-  width: 52px;
-  height: 52px;
+.queue-person {
+  display: flex;
+  flex-direction: column;
+  align-items: center;
+  gap: 7px;
+  min-width: 0;
+}
+
+.queue-avatar {
+  width: 58px;
+  aspect-ratio: 1;
+  display: grid;
+  place-items: center;
+  overflow: hidden;
+  border: 2px solid var(--gold);
   border-radius: 50%;
-  border: 2px solid white;
+  background: #783b24;
+  box-shadow: 0 0 14px #ffbd3d77;
+  font-size: 25px;
+}
+
+.queue-avatar img {
+  width: 100%;
+  height: 100%;
   object-fit: cover;
 }
 
-button {
-  background: #d99b32;
-  border: 0;
-  padding: 12px 22px;
-  border-radius: 25px;
-  font-weight: bold;
-  margin: 5px;
+.queue-person small {
+  max-width: 100%;
+  overflow: hidden;
+  text-overflow: ellipsis;
+  white-space: nowrap;
+  color: #f7e6d8;
+  font-size: 10px;
 }
 
-audio {
-  width: 100%;
-  max-width: 300px;
-  margin-top: 12px;
+.queue-empty {
+  grid-column: 1 / -1;
+  padding: 20px;
+  color: var(--muted);
+  text-align: center;
+  font-size: 13px;
+}
+
+.comment-list {
+  display: grid;
+  gap: 10px;
+}
+
+.comment {
+  display: flex;
+  align-items: flex-start;
+  gap: 11px;
+  padding: 9px;
+  border-radius: 13px;
+  background: rgba(0,0,0,.3);
+}
+
+.comment-avatar {
+  width: 36px;
+  height: 36px;
+  flex-shrink: 0;
+  display: grid;
+  place-items: center;
+  border: 1px solid var(--gold);
+  border-radius: 50%;
+  background: #77351e;
+}
+
+.comment-body {
+  min-width: 0;
+  font-size: 13px;
+  line-height: 1.5;
+  overflow-wrap: anywhere;
+}
+
+.comment-body strong {
+  display: block;
+  color: #e9c9b4;
+}
+
+.empty-comments {
+  color: var(--muted);
+  font-size: 13px;
+}
+
+.footer {
+  max-width: 850px;
+  margin: 18px auto;
+  display: flex;
+  justify-content: space-between;
+  gap: 10px;
+  color: var(--muted);
+  font-size: 11px;
+}
+
+.footer strong {
+  color: var(--gold);
+}
+
+@media(max-width:650px) {
+
+  .page {
+    padding: 12px 11px 25px;
+  }
+
+  .masthead {
+    padding: 10px;
+  }
+
+  .brand-mark {
+    width: 44px;
+    height: 44px;
+    font-size: 22px;
+  }
+
+  .brand h1 {
+    font-size: 17px;
+  }
+
+  .brand p {
+    font-size: 10px;
+  }
+
+  .live-state {
+    padding: 8px;
+    font-size: 9px;
+    letter-spacing: 1px;
+  }
+
+  .stage {
+    grid-template-columns: 1fr;
+    gap: 18px;
+  }
+
+  .contestant-photo {
+    width: 115px;
+  }
+
+  .roast-bubble {
+    text-align: center;
+    padding: 20px 15px;
+  }
+
+  .roast-bubble::before {
+    left: 50%;
+    top: -10px;
+    border-left: 2px solid var(--gold);
+    border-bottom: 0;
+    border-top: 2px solid var(--gold);
+    transform: translateX(-50%) rotate(45deg);
+  }
+
+  .roast-text {
+    min-height: 0;
+    font-size: 19px;
+  }
+
+  .queue-grid {
+    gap: 12px 5px;
+  }
+
+  .queue-avatar {
+    width: 48px;
+  }
+
+  .footer {
+    font-size: 10px;
+  }
 }
 </style>
 </head>
 
 <body>
+
 <div class="arena">
 
-  <h1>🔥 GOGO MATHWALA 🔥</h1>
-  <div class="section-title">THE ROAST ARENA</div>
+<main class="page">
 
-  <div class="characters">
-    <img class="character" src="images/gogo.png" alt="Gogo">
-    <img class="character" src="images/tokoloshe.png" alt="Tokoloshe">
+<header class="masthead">
+
+  <div class="brand">
+    <div class="brand-mark">🔥</div>
+
+    <div>
+      <h1>Gogo &amp; Tokoloshe</h1>
+      <p>The home of the Zulu roast</p>
+    </div>
   </div>
 
-  <div class="section-title">🔥 CURRENT CONTESTANT 🔥</div>
-
-  <img class="contestant"
-       src="images/contestant.jpg"
-       alt="Contestant">
-
-  <div class="username">@contestant</div>
-
-  <div class="section-title">NEXT IN THE QUEUE</div>
-
-  <div class="queue">
-    <img src="images/user1.jpg" alt="User 1">
-    <img src="images/user2.jpg" alt="User 2">
-    <img src="images/user3.jpg" alt="User 3">
-    <img src="images/user4.jpg" alt="User 4">
-    <img src="images/user5.jpg" alt="User 5">
-    <img src="images/user6.jpg" alt="User 6">
-    <img src="images/user7.jpg" alt="User 7">
-    <img src="images/user8.jpg" alt="User 8">
-    <img src="images/user9.jpg" alt="User 9">
-    <img src="images/user10.jpg" alt="User 10">
+  <div class="live-state">
+    <span class="live-dot"></span>
+    <span id="connection-status">CONNECTING</span>
   </div>
 
-  <div class="section-title">GOGO'S AUDIO</div>
+</header>
 
-  <audio controls>
-    <source src="audio/gogo.mp3" type="audio/mpeg">
-    Your browser does not support audio.
-  </audio>
+<section class="intro">
 
+  <div class="eyebrow">
+    South African comedy experience
+  </div>
+
+  <h2>THE ROAST ARENA</h2>
+
+  <p>
+    100 likes gets you in. Gogo brings the heat. 🔥
+  </p>
+
+</section>
+
+<section class="stage">
+
+  <div class="contestant">
+
+    <div class="contestant-photo" id="contestant-avatar">
+      🎭
+    </div>
+
+    <div class="contestant-label">
+      On the hot seat
+    </div>
+
+    <div class="contestant-name" id="contestant-name">
+      Waiting for contestant
+    </div>
+
+    <div class="contestant-handle" id="contestant-handle">
+      The next roast starts here
+    </div>
+
+  </div>
+
+  <article class="roast-bubble" aria-live="polite">
+
+    <div class="roast-label">
+      🤣 Gogo's Zulu roast
+    </div>
+
+    <p class="roast-text" id="roast-text">
+      Hawu! Gogo usalungisa amahlaya.
+      Uma usufike ku-100 likes,
+      uzongena esihlalweni esishisayo! 🔥
+    </p>
+
+    <div class="roast-meta" id="roast-meta">
+      Waiting for the first qualified contestant
+    </div>
+
+  </article>
+
+</section>
+
+<section class="panel">
+
+  <div class="section-heading">
+    <h3>Next contestants</h3>
+    <span id="queue-count">0 waiting</span>
+  </div>
+
+  <div class="queue-grid" id="queue-grid">
+
+    <div class="queue-empty">
+      The queue is empty. Send likes to qualify! ❤️
+    </div>
+
+  </div>
+
+</section>
+
+<section class="panel">
+
+  <div class="section-heading">
+    <h3>Live crowd</h3>
+    <span>Audience reactions</span>
+  </div>
+
+  <div class="comment-list" id="chat-list">
+
+    <div class="empty-comments">
+      Live comments will appear here when viewers chat.
+    </div>
+
+  </div>
+
+</section>
+
+<footer class="footer">
+
+  <span>
+    <strong>GOGO &amp; TOKOLOSHE</strong> · Roast Arena
+  </span>
+
+  <span id="server-status">
+    Connecting to game server…
+  </span>
+
+</footer>
+
+</main>
 </div>
+
+<script>
+
+// ==========================================
+// FRONTEND ELEMENTS
+// ==========================================
+
+const statusEl =
+  document.getElementById("connection-status");
+
+const serverStatusEl =
+  document.getElementById("server-status");
+
+const queueGrid =
+  document.getElementById("queue-grid");
+
+const chatList =
+  document.getElementById("chat-list");
+
+const fallbackFaces = [
+  "👩🏽","🧔🏾","👩🏾","👨🏿","👩🏽",
+  "👨🏾","👩🏿","🧔🏽","👩🏾","👨🏿"
+];
+
+// ==========================================
+// SAFE TEXT UPDATES
+// ==========================================
+
+function setText(id, value) {
+
+  if (value !== undefined && value !== null) {
+    document.getElementById(id).textContent =
+      String(value);
+  }
+
+}
+
+// ==========================================
+// PROFILE IMAGES
+// ==========================================
+
+function setAvatar(element, url, fallback) {
+
+  element.replaceChildren();
+
+  if (url) {
+
+    const image = document.createElement("img");
+
+    image.src = url;
+    image.alt = "";
+    image.referrerPolicy = "no-referrer";
+
+    image.onerror = () => {
+      element.textContent = fallback || "🎭";
+    };
+
+    element.append(image);
+
+  } else {
+
+    element.textContent = fallback || "🎭";
+
+  }
+
+}
+
+// ==========================================
+// CONTESTANT QUEUE
+// ==========================================
+
+function renderQueue(items) {
+
+  if (!Array.isArray(items)) return;
+
+  queueGrid.replaceChildren();
+
+  setText(
+    "queue-count",
+    `${items.length} waiting`
+  );
+
+  if (!items.length) {
+
+    const empty = document.createElement("div");
+
+    empty.className = "queue-empty";
+
+    empty.textContent =
+      "The queue is empty. Send likes to qualify! ❤️";
+
+    queueGrid.append(empty);
+
+    return;
+
+  }
+
+  items.slice(0, 10).forEach((person, index) => {
+
+    const card = document.createElement("div");
+
+    card.className = "queue-person";
+
+    const avatar = document.createElement("div");
+
+    avatar.className = "queue-avatar";
+
+    setAvatar(
+      avatar,
+      person.avatar,
+      fallbackFaces[index % fallbackFaces.length]
+    );
+
+    const name = document.createElement("small");
+
+    name.textContent =
+      person.nickname ||
+      person.username ||
+      `Contestant ${index + 1}`;
+
+    card.append(avatar, name);
+
+    queueGrid.append(card);
+
+  });
+
+}
+
+// ==========================================
+// LIVE COMMENTS
+// ==========================================
+
+function renderComment(comment) {
+
+  if (!comment) return;
+
+  const empty =
+    chatList.querySelector(".empty-comments");
+
+  if (empty) empty.remove();
+
+  const row = document.createElement("div");
+
+  row.className = "comment";
+
+  const avatar = document.createElement("div");
+
+  avatar.className = "comment-avatar";
+
+  avatar.textContent =
+    comment.avatarEmoji || "💬";
+
+  const copy = document.createElement("div");
+
+  copy.className = "comment-body";
+
+  const user = document.createElement("strong");
+
+  user.textContent =
+    comment.nickname ||
+    comment.username ||
+    "Viewer";
+
+  const message = document.createElement("span");
+
+  message.textContent =
+    comment.comment ||
+    comment.text ||
+    "";
+
+  copy.append(user, message);
+
+  row.append(avatar, copy);
+
+  chatList.prepend(row);
+
+  while (chatList.children.length > 5) {
+    chatList.lastElementChild.remove();
+  }
+
+}
+
+// ==========================================
+// HANDLE SERVER EVENTS
+// ==========================================
+
+function handleEvent(type, data) {
+
+  if (!data || typeof data !== "object") return;
+
+  if (type === "state") {
+
+    if (data.currentContestant) {
+
+      handleEvent(
+        "contestant",
+        data.currentContestant
+      );
+
+      if (data.currentContestant.roast) {
+
+        handleEvent(
+          "roast",
+          data.currentContestant
+        );
+
+      }
+
+    }
+
+    if (Array.isArray(data.queue)) {
+      renderQueue(data.queue);
+    }
+
+  }
+
+  if (type === "contestant") {
+
+    setText(
+      "contestant-name",
+      data.nickname || data.username || "New contestant"
+    );
+
+    setText(
+      "contestant-handle",
+      data.username ? `@${data.username}` : "On the hot seat"
+    );
+
+    setAvatar(
+      document.getElementById("contestant-avatar"),
+      data.avatar,
+      "🎭"
+    );
+
+    setText(
+      "roast-meta",
+      `Contestant #${data.position || "—"} · Generating roast…`
+    );
+
+    setText(
+      "roast-text",
+      "Gogo uyacabanga… the roast is cooking! 🔥"
+    );
+
+  }
+
+  if (type === "roast") {
+
+    setText(
+      "roast-text",
+      data.roast ||
+      data.text ||
+      "Gogo is preparing the next roast…"
+    );
+
+    setText(
+      "roast-meta",
+      data.username
+        ? `Zulu roast for @${data.username}`
+        : `Contestant #${data.position || "—"}`
+    );
+
+  }
+
+  if (type === "queue") {
+
+    renderQueue(
+      data.items || data.queue || []
+    );
+
+  }
+
+  if (type === "comment") {
+
+    renderComment(data);
+
+  }
+
+}
+
+// ==========================================
+// CONNECT TO SERVER
+// ==========================================
+
+if ("EventSource" in window) {
+
+  const events = new EventSource("/events");
+
+  [
+    "state",
+    "contestant",
+    "roast",
+    "queue",
+    "comment"
+  ].forEach((type) => {
+
+    events.addEventListener(type, (event) => {
+
+      try {
+
+        handleEvent(
+          type,
+          JSON.parse(event.data)
+        );
+
+      } catch (error) {
+
+        console.error(
+          `Invalid ${type} event`,
+          error
+        );
+
+      }
+
+    });
+
+  });
+
+  events.onopen = () => {
+
+    statusEl.textContent = "LIVE SERVER";
+
+    serverStatusEl.textContent =
+      "Connected · Live updates on";
+
+  };
+
+  events.onerror = () => {
+
+    statusEl.textContent = "RECONNECTING";
+
+    serverStatusEl.textContent =
+      "Reconnecting to game server…";
+
+  };
+
+} else {
+
+  statusEl.textContent = "OFFLINE";
+
+  serverStatusEl.textContent =
+    "This browser does not support live updates.";
+
+}
+
+</script>
+
 </body>
 </html>
