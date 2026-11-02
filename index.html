@@ -1,0 +1,145 @@
+
+<!DOCTYPE html>
+<html lang="en">
+<head>
+<meta charset="UTF-8">
+<meta name="viewport" content="width=device-width, initial-scale=1.0">
+<title>Gogo Mathwala - Roast Arena</title>
+
+<style>
+* { box-sizing: border-box; }
+
+body {
+  margin: 0;
+  font-family: Arial, sans-serif;
+  background: #21160f;
+  color: white;
+}
+
+.arena {
+  min-height: 100vh;
+  padding: 20px 14px;
+  background:
+    linear-gradient(#0008, #000b),
+    url("images/background.jpg") center/cover no-repeat;
+  text-align: center;
+}
+
+h1 {
+  color: #ffd36a;
+  font-size: 27px;
+  margin: 8px 0 20px;
+}
+
+.characters {
+  display: flex;
+  justify-content: space-around;
+  align-items: center;
+  gap: 10px;
+  margin-bottom: 20px;
+}
+
+.character {
+  width: 45%;
+  max-width: 180px;
+  height: 160px;
+  object-fit: contain;
+}
+
+.section-title {
+  color: #ffd36a;
+  font-weight: bold;
+  margin: 15px 0;
+}
+
+.contestant {
+  width: 105px;
+  height: 105px;
+  border-radius: 50%;
+  border: 4px solid gold;
+  object-fit: cover;
+}
+
+.username {
+  font-size: 19px;
+  font-weight: bold;
+  margin: 8px;
+}
+
+.queue {
+  display: grid;
+  grid-template-columns: repeat(5, 1fr);
+  gap: 13px 8px;
+  max-width: 420px;
+  margin: 18px auto;
+}
+
+.queue img {
+  width: 52px;
+  height: 52px;
+  border-radius: 50%;
+  border: 2px solid white;
+  object-fit: cover;
+}
+
+button {
+  background: #d99b32;
+  border: 0;
+  padding: 12px 22px;
+  border-radius: 25px;
+  font-weight: bold;
+  margin: 5px;
+}
+
+audio {
+  width: 100%;
+  max-width: 300px;
+  margin-top: 12px;
+}
+</style>
+</head>
+
+<body>
+<div class="arena">
+
+  <h1>🔥 GOGO MATHWALA 🔥</h1>
+  <div class="section-title">THE ROAST ARENA</div>
+
+  <div class="characters">
+    <img class="character" src="images/gogo.png" alt="Gogo">
+    <img class="character" src="images/tokoloshe.png" alt="Tokoloshe">
+  </div>
+
+  <div class="section-title">🔥 CURRENT CONTESTANT 🔥</div>
+
+  <img class="contestant"
+       src="images/contestant.jpg"
+       alt="Contestant">
+
+  <div class="username">@contestant</div>
+
+  <div class="section-title">NEXT IN THE QUEUE</div>
+
+  <div class="queue">
+    <img src="images/user1.jpg" alt="User 1">
+    <img src="images/user2.jpg" alt="User 2">
+    <img src="images/user3.jpg" alt="User 3">
+    <img src="images/user4.jpg" alt="User 4">
+    <img src="images/user5.jpg" alt="User 5">
+    <img src="images/user6.jpg" alt="User 6">
+    <img src="images/user7.jpg" alt="User 7">
+    <img src="images/user8.jpg" alt="User 8">
+    <img src="images/user9.jpg" alt="User 9">
+    <img src="images/user10.jpg" alt="User 10">
+  </div>
+
+  <div class="section-title">GOGO'S AUDIO</div>
+
+  <audio controls>
+    <source src="audio/gogo.mp3" type="audio/mpeg">
+    Your browser does not support audio.
+  </audio>
+
+</div>
+</body>
+</html>
